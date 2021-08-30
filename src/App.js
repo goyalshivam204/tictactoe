@@ -22,7 +22,7 @@ function App() {
 
   const [render, setRender] = useState(false);
   const [lock, setLock] = useState(false);
-
+  const [inValid, setInValid] = useState(false);
 
   const isEqual = (a, b, c, turn) => {
 
@@ -165,10 +165,10 @@ function App() {
     let row = e.target.dataset.row;
     let col = e.target.dataset.col;
     if (board[row][col] != "") {
-      alert("invalid move");
+      setInValid(true);
       return;
     }
-
+    setInValid(false);
 
     setBoard((oldBoard) => {
       const tempBoard = oldBoard;
@@ -238,10 +238,12 @@ function App() {
         }
 
       </table>
+      {inValid && <h1>Invalid Move, choose empty box.</h1>}
       {lock && <h1>{greeting(winner)}</h1 >}
       {lock && <button onClick={(e) => {
         pageRefreshHandler()
       }}>Try Again</button>}
+
     </div >
   );
 }
